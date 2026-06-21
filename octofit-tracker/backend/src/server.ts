@@ -29,6 +29,13 @@ app.get('/api/health', (_req, res) => {
   })
 })
 
+app.get('/api/test', (_req, res) => {
+  res.json({
+    message: 'OctoFit Tracker test endpoint',
+    baseUrl,
+  })
+})
+
 app.use('/api', routes)
 
 connectDB()
