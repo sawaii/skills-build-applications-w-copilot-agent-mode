@@ -1,0 +1,44 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3rem;
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  color: #93c5fd;
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  color: #e2e8f0;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.progress-streak {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.card {
+  border: 1px solid #dbeafe;
+}
+
