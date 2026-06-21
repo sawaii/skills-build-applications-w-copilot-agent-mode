@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../utils/api.js'
 
 function Users() {
   const [items, setItems] = useState([])
@@ -7,10 +6,27 @@ function Users() {
 
   useEffect(() => {
     let isMounted = true
+    const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+    const apiUrl = codespaceName
+      ? `https://${codespaceName}-8000.app.github.dev/api/users/`
+      : 'http://localhost:8000/api/users/'
 
-    fetchCollection('users')
-      .then((data) => {
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch users')
+        }
+        return response.json()
+      })
+      .then((payload) => {
         if (isMounted) {
+          const data = Array.isArray(payload)
+            ? payload
+            : Array.isArray(payload.results)
+              ? payload.results
+              : Array.isArray(payload.data)
+                ? payload.data
+                : []
           setItems(data)
           setError('')
         }

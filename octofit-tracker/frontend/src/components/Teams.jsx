@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { fetchCollection } from '../utils/api.js'
 
 function Teams() {
   const [items, setItems] = useState([])
@@ -7,10 +6,27 @@ function Teams() {
 
   useEffect(() => {
     let isMounted = true
+    const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
+    const apiUrl = codespaceName
+      ? `https://${codespaceName}-8000.app.github.dev/api/teams/`
+      : 'http://localhost:8000/api/teams/'
 
-    fetchCollection('teams')
-      .then((data) => {
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch teams')
+        }
+        return response.json()
+      })
+      .then((payload) => {
         if (isMounted) {
+          const data = Array.isArray(payload)
+            ? payload
+            : Array.isArray(payload.results)
+              ? payload.results
+              : Array.isArray(payload.data)
+                ? payload.data
+                : []
           setItems(data)
           setError('')
         }
